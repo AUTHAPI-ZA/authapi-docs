@@ -1,1 +1,84 @@
+import { Callout, Steps, Tab, Tabs } from "nextra-theme-docs";
+
 # Webhooks
+
+## Overview
+
+Webhooks are a way to send data from one application to another when something of interest happens. They are sometimes called "Reverse APIs," as they give you what amounts to an API spec, and you must design an API for the webhook to use.
+
+We send webhooks at the following events:
+
+- When a user is created `SUGNUP`
+- When a user is updated `UPDATE`
+- When a user is deleted `DELETE`
+- When a user is verified `EMAIL_VERIFIED`
+- When a user is blocked `BLOCKED`
+- When a user is unblocked `UNBLOCKED`
+- When a user is logged in `LOGIN`
+- When a user is logged out `LOGOUT`
+
+## Webhook data
+
+The data sent to your webhook receiver will be in JSON format and will look like this:
+
+```json
+
+
+### Enable your AUTHAPI app to receive webhooks
+
+<Steps>
+
+### Step 1: Add a webhook receiver to your app
+
+Add a webhook receiver to your app. This is the URL that AUTHAPI will send data to when a webhook is triggered and the Method (GET or POST) that AUTHAPI will use to send the data.
+
+![Webhook Receiver](/guides/authapi_setting.png)
+
+<Callout>
+You can use [Mock HTTP Server](https://beeceptor.com/) to test your webhook receiver and see what data is sent to it.
+</Callout>
+
+### Step 2: Add a webhook hander to your app
+
+Add a webhook hander to your app. This is the code that will receive the data sent by AUTHAPI and process it. Here is an example of a webhook hander in Express.js:
+
+Method: `POST`
+
+```js
+
+const express = require('express')
+const app = express()
+
+app.post('/webhook', (req, res) => {
+    console.log(req.body)
+
+    // You can update your database here
+
+    es.send('OK')
+})
+
+app.listen(3000)
+
+```
+
+Method: `GET`
+
+```js
+
+const express = require('express')
+const app = express()
+
+app.get('/webhook', (req, res) => {
+    console.log(req.query)
+
+    // You can update your database here
+
+  res.send('OK')
+})
+
+app.listen(3000)
+```
+
+
+
+</Steps>
