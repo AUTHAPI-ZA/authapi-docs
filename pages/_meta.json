@@ -12,6 +12,9 @@
   "webhooks": {
     "title": "Webhooks"
   },
+  "redirects": {
+    "title": "Redirects"
+  },
   "error": {
     "title": "Error Codes"
   },
