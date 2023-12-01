@@ -93,9 +93,7 @@ export const Logo = () => {
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const config = {
-  chat: {
-
-  },
+  chat: {},
   darkMode: true,
 
   feedback: {
@@ -111,11 +109,11 @@ const config = {
   nextThemes: {
     defaultTheme: "dark",
   },
-  primaryHue: 350,
+  primaryHue: 150,
   project: {
     link: "https://github.com/axolem/authapi-docs",
   },
-  docsRepositoryBase: "https://github.com/axolem/authapi-docs",
+  docsRepositoryBase: "https://github.com/Axolem/authapi-docs/tree/main/",
   useNextSeoProps() {
     return {
       additionalLinkTags: [
@@ -149,9 +147,7 @@ const config = {
       ],
       description: "Docs for my AUTHAPI project",
       openGraph: {
-        images: [
-          { url: "https://authapi-docs.vercel.app/AUTHAPI.png" },
-        ],
+        images: [{ url: "https://authapi-docs.vercel.app/AUTHAPI.png" }],
       },
       titleTemplate: "%s – authapi docs",
       twitter: {
@@ -159,6 +155,16 @@ const config = {
         site: "https://authapi-docs.vercel.app",
       },
     };
+  },
+  toc: {
+    backToTop: true,
+  },
+  feedback: {
+    content: "Question? Give us feedback →",
+    labels: "feedback",
+  },
+  editLink: {
+    text: "Edit this page on GitHub →",
   },
 };
 

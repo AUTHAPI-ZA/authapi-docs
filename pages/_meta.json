@@ -1,15 +1,27 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
-  "about": {
-    "title": "About",
-    "type": "page"
+  "getting-started": {
+    "title": "Getting Started"
   },
-  "contact": {
-    "title": "Contact ↗",
+  "sdk": {
+    "title": "SDKs"
+  },
+  "webhooks": {
+    "title": "Webhooks"
+  },
+  "error": {
+    "title": "Error Codes"
+  },
+  "faq": {
+    "title": "FAQ"
+  },
+  "roadmap": {
+    "title": "Roadmap"
+  },
+  "Dashboard": {
+    "title": "Dashboard ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://apiauth.vercel.app/auth?utm_source=docs&utm_medium=dashboard&utm_campaign=docs",
     "newWindow": true
   }
 }
