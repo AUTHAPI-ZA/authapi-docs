@@ -18,16 +18,16 @@ Here is an example of an error response:
 
 Here is a table of common error codes that you may encounter while using AUTHAPI. Each error code is accompanied by a brief description of the issue and possible solutions.
 
-| Error Code | Description | Solution |
-|------------|-------------|----------|
-| `401 Unauthorized` | The request lacks valid authentication credentials. | Ensure that the provided authentication credentials (API key, tokens) are valid and have the necessary permissions. |
-| `403 Forbidden` | The authenticated user does not have the necessary permissions. | Check the user's role and permissions. Make sure they have the required access to perform the requested operation. |
-| `404 Not Found` | The requested resource could not be found. | Verify that the specified resource (user, endpoint) exists and is correctly spelled in the request. |
-| `422 Unprocessable Entity` | The request is well-formed but contains invalid parameters. | Review the request payload and ensure that all required parameters are provided and correctly formatted. |
-| `409 Conflict` | The requested operation conflicts with the current state of the server. | Resolve any conflicting conditions (e.g., duplicate user account) before reattempting the operation. |
-| `428 Precondition Required` | The request requires MFA, but it was not provided. | Include the required MFA information in the request headers or payload. |
-| `429 Too Many Requests` | The user has sent too many requests in a given amount of time. | Slow down the request rate to avoid being rate-limited. Consider implementing exponential backoff. |
-| `500 Internal Server Error` | An unexpected error occurred on the server. | Retry the request, and if the issue persists, contact technical support with details about the request. |
-| `502 Bad Gateway` | The AUTHAPI server received an invalid response from the OAuth provider. | Check the OAuth provider's status and verify the integration details. |
+| Error Code                  | Description                                                              | Solution                                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `401 Unauthorized`          | The request lacks valid authentication credentials.                      | Ensure that the provided authentication credentials (API key, tokens) are valid and have the necessary permissions. |
+| `403 Forbidden`             | The authenticated user does not have the necessary permissions.          | Check the user's role and permissions. Make sure they have the required access to perform the requested operation.  |
+| `404 Not Found`             | The requested resource could not be found.                               | Verify that the specified resource (user, endpoint) exists and is correctly spelled in the request.                 |
+| `422 Unprocessable Entity`  | The request is well-formed but contains invalid parameters.              | Review the request payload and ensure that all required parameters are provided and correctly formatted.            |
+| `409 Conflict`              | The requested operation conflicts with the current state of the server.  | Resolve any conflicting conditions (e.g., duplicate user account) before reattempting the operation.                |
+| `428 Precondition Required` | The request requires MFA, but it was not provided.                       | Include the required MFA information in the request headers or payload.                                             |
+| `429 Too Many Requests`     | The user has sent too many requests in a given amount of time.           | Slow down the request rate to avoid being rate-limited. Consider implementing exponential backoff.                  |
+| `500 Internal Server Error` | An unexpected error occurred on the server.                              | Retry the request, and if the issue persists, contact technical support with details about the request.             |
+| `502 Bad Gateway`           | The AUTHAPI server received an invalid response from the OAuth provider. | Check the OAuth provider's status and verify the integration details.                                               |
 
 If you encounter an error that is not listed here or need further assistance, please contact our support team for prompt resolution.
