@@ -109,7 +109,7 @@ const config = {
   nextThemes: {
     defaultTheme: "dark",
   },
-  primaryHue: 150,
+  primaryHue: 300,
   project: {
     link: "https://github.com/axolem/authapi-docs",
   },
