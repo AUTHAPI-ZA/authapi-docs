@@ -1,11 +1,308 @@
-# Introduction
- 
-Welcome to Nextra! This is a basic docs template. You can use it as a starting point for your own project :)
+---
+title: Public API Documentation
+---
 
-## What is Nextra?
+import { Callout, Steps, Tab, Tabs } from "nextra-theme-docs";
 
-A **simple**, **powerful** and **flexible** site generation framework with everything you love from Next.js.
+<Callout type="warning">
+If you don't already have a AUTHAPI secret key, [sign up](https://apiauth.vercel.app/auth?utm_source=docs&utm_medium=docs&utm_campaign=docs
+) and create one from the [dashboard!](https://apiauth.vercel.app/dashboard?utm_source=docs&utm_medium=docs&utm_campaign=docs)  
+</Callout>
 
-## Documentation
+## API Endpoints
 
-The documentation is available at [https://nextra.site](https://nextra.site).
+<Steps>
+
+### Register a new user
+
+`POST` ``` /auth/v2/create```
+
+```js
+const body = {
+    email: "johndoe@email.com",
+    password: "myStongPassword@123",
+    fisrt_name: "John", // Optional
+    last_name: "Doe", // Optional
+}
+
+await axios.post(`${_AUTH_API_URL_}/auth/v2/create`, body, authHeader);
+```
+#### Response
+
+```json
+{
+  "statusCode": 201,
+  "message": "User created successfully",
+  "data": {
+    "id": "5f9b3b7b9b0b2b0008c9b0b2",
+    ...
+  }
+}
+```
+
+### Login a user
+
+`POST` ``` /auth/v2/signin```
+
+```js
+const body = {
+    email: "johndoe@email.com",
+    password: "myStongPassword@123",
+}
+
+await axios.post(`${_AUTH_API_URL_}/auth/v2/signin`, body, authHeader);
+```
+
+#### Response
+
+```json
+{
+  "statusCode": 200,
+  "message": "User logged in successfully",
+  "data": {
+    "id": "5f9b3b7b9b0b2b0008c9b0b2",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    ...
+  }
+}
+```
+
+### Refresh a user token
+
+`POST` ``` /auth/v2/refresh/:token```
+
+```js
+await axios.post(`${_AUTH_API_URL_}/auth/v2/refresh/${token}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "Token refreshed successfully",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "statusCode": 200
+}
+```
+
+### Verify a user token
+
+`POST` ``` /auth/v2/verify/:token```
+
+```js
+await axios.post(`${_AUTH_API_URL_}/auth/v2/verify/${token}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "Token verified successfully",
+    "statusCode": 200,
+    "data": {
+        "id": "5f9b3b7b9b0b2b0008c9b0b2",
+        // Same as the data returned from user registration
+        ...
+    }
+}
+```
+
+### Get user details
+
+`GET` ``` /auth/v2/user/:id```
+
+```js
+await axios.get(`${_AUTH_API_URL_}/auth/v2/user/${id}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "User details fetched successfully",
+    "statusCode": 200,
+    "data": {
+        "id": "5f9b3b7b9b0b2b0008c9b0b2",
+        // Same as the data returned from user registration
+        ...
+    }
+}
+```
+
+### Update user details
+
+`PUT` ``` /auth/v2/user/:id```
+
+```js
+const body = {
+    first_name: "John",
+    last_name: "Doe",
+    phone: "+27681721606"
+    // Any other field you want to update from the AccountDetails oject
+}
+
+await axios.put(`${_AUTH_API_URL_}/auth/v2/user/${id}`, body, authHeader);
+```
+
+#### Response
+
+```json
+{
+    "message": "User details updated successfully",
+    "statusCode": 200,
+    "data": {
+        "id": "5f9b3b7b9b0b2b0008c9b0b2",
+        // Same as the data returned from user registration
+        ...
+    }
+}
+```
+
+### Update user password
+
+<Steps>
+
+### Step 1: Request a password reset
+
+`GET` ``` /auth/password/reset/:user_id```
+
+```js
+await axios.post(`${_AUTH_API_URL_}/auth/password/reset/${user_id}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "Password reset request sent successfully",
+    "statusCode": 200,
+    "data": {
+        "id": "5f9b3b7b9b0b2b0008c9b0b2",
+    }
+}
+```
+
+<Callout>
+Options:
+1. The user will receive an email with a password reset code valid for 15 minutes, you can ask for this in your frontend.
+2. The user will receive an email with a link to reset their password. The link will be valid for 15 minutes. Once they successfully reset their password, they will be redirected to the link set in the App's settings and your backend will be notified.
+</Callout>
+
+### Step 2: Reset the password
+
+`POST` ```/auth/password/reset```
+
+```js
+const body = {
+	"uid": "clp41z1gm0000je343e75gzpp",
+	"code": 85929,
+	"password": "Agzol068?"
+}
+
+await axios.post(`${_AUTH_API_URL_}/auth/password/reset`, body);
+```
+
+#### Response
+
+```json
+{
+    "message": "Password reset successfully",
+    "statusCode": 200,
+    "data": {
+        "id": "5f9b3b7b9b0b2b0008c9b0b2",
+    }
+}
+```
+</Steps>
+
+### Logout a user
+
+`GET` ``` /auth/v2/logout/:token```
+
+```js
+await axios.get(`${_AUTH_API_URL_}/auth/v2/logout/${token}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "User logged out successfully",
+    "statusCode": 200,
+}
+```
+
+### Logout all user sessions
+
+`GET` ``` /auth/logout/all/:id```
+
+```js
+await axios.get(`${_AUTH_API_URL_}/auth/logout/all/${id}`);
+```
+
+#### Response
+
+```json
+{
+    "message": "All user sessions logged out successfully",
+    "statusCode": 200,
+}
+```
+
+</Steps>
+
+## References
+
+### User object
+
+Status: ``` 200```
+
+```json
+{
+	"message": "Login successful",
+	"expires_at": 1704038193161,
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....",
+	"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+	"uid": "clpb90gs50002mh1f91l2m6q8",
+	"tid": "18c261890096ef453d582f7ffb24cdf8",
+	"data": {
+		"uid": "clpb90gs50002mh1f91l2m6q8",
+		"email": "johndoe4@email.com",
+		"created_at": "2023-11-23T11:47:50.646Z",
+		"updated_at": "2023-11-30T08:45:32.057Z",
+		"aid": "clozpc43c00004bhmftewb0yr",
+		"active": true,
+		"email_verified": true,
+		"id": "clpb90gs50002mh1f91l2m6q8",
+		"first_name": "John",
+		"last_name": "Joe",
+		"phone": "+1 123 456 7890",
+		"country": "Germany",
+		"profile_image": "https://utfs.io/f/b8fd8dc1-fd79-4594-90d2-44af6a23e854-74htat.jpg"
+	}
+}
+```
+
+### Error object
+
+Status: ``` 400```
+
+```json
+{
+	"message": "Some fields are missing or invalid.",
+	"data": [
+		{
+			"type": "field",
+			"value": "?",
+			"msg": "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number and a symbol",
+			"path": "password",
+			"location": "body"
+		}
+	],
+	"statusCode": 400
+}
+```
+
+
