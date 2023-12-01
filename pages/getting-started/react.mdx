@@ -1,1 +1,26 @@
-# React
+import { Callout, Steps } from "nextra-theme-docs";
+
+## Setting up your environment
+
+<Steps>
+
+### Install the packages
+
+```bash copy npm2yarn
+npm install  @authapi/react
+```
+
+### Add env variables
+
+```bash
+_AUTHAPI_SECRET_=... # A secret key for your app
+_AUTHAPI_APPID_=... # An app id for your app 
+```
+
+<Callout type="warning">
+  If you don't already have a AUTHAPI secret key, [sign up](https://apiauth.vercel.app/auth?
+  ) and create one from
+  the [dashboard!](https://apiauth.vercel.app/dashboard?
+  )
+</Callout>
+</Steps>
