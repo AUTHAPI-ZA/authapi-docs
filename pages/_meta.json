@@ -1,5 +1,8 @@
 {
   "index": "Introduction",
+  "env": {
+    "title": "Enviroment Variables"
+  },
   "getting-started": {
     "title": "Getting Started"
   },
