@@ -6,24 +6,6 @@ import { Callout, Steps, Tab, Tabs } from "nextra-theme-docs";
 
 Webhooks are a way to send data from one application to another when something of interest happens. They are sometimes called "Reverse APIs," as they give you what amounts to an API spec, and you must design an API for the webhook to use.
 
-We send webhooks at the following events:
-
-- When a user is created `SUGNUP`
-- When a user is updated `UPDATE`
-- When a user is deleted `DELETE`
-- When a user is verified `EMAIL_VERIFIED`
-- When a user is blocked `BLOCKED`
-- When a user is unblocked `UNBLOCKED`
-- When a user is logged in `LOGIN`
-- When a user is logged out `LOGOUT`
-
-## Webhook data
-
-The data sent to your webhook receiver will be in JSON format and will look like this:
-
-```json
-
-
 ### Enable your AUTHAPI app to receive webhooks
 
 <Steps>
@@ -79,6 +61,50 @@ app.get('/webhook', (req, res) => {
 app.listen(3000)
 ```
 
+### Step 3: Add a webhook to your app
 
+Add a webhook to your app. This is the webhook that will be triggered when a user is created, updated, deleted, verified, blocked, unblocked, logged in or logged out.
+
+![Webhook](/guides/authapi_webhook.png)
+
+### Step 4: Test your webhook
+
+Test your webhook by creating, updating, deleting, verifying, blocking, unblocking, logging in or logging out a user. You should see the data sent by AUTHAPI in your webhook receiver and the data processed by your webhook hander in your webhook hander. If you don't see the data sent by AUTHAPI in your webhook receiver or the data processed by your webhook hander in your webhook hander, check your webhook receiver and webhook hander for errors.
+Otherwise, Yey! You have successfully set up your webhook!
 
 </Steps>
+
+## Webhook data
+
+The data sent to your webhook receiver will be in JSON format and will look like this:
+
+```json
+{
+    "type": "LOGIN",
+    "data": {
+        "city": "New York",
+        "country": "US",
+        "device": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36",
+        "email": "jondoe@email.com",
+        "email_verified": true,
+        "ip": "::0",
+        "location": "40.71455,-74.007118",
+        "time": "2021-10-15T14:48:00.000Z",
+        "uid": "1234567890",
+        "verified_at": "2021-10-15T14:48:00.000Z"
+    }
+}
+```
+
+## Webhook types
+
+The following webhook types are available:
+
+- `SIGNUP` - When a user is created
+- `UPDATE` - When a user is updated
+- `DELETE` - When a user is deleted
+- `EMAIL_VERIFIED` - When a user is verified
+- `BLOCKED` - When a user is blocked
+- `UNBLOCKED` - When a user is unblocked
+- `LOGIN` - When a user is logged in
+- `LOGOUT` - When a user is logged out
